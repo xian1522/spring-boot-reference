@@ -3,3 +3,36 @@ spring:
     name: demo
   main:
     lazy-initialization: false
+  profiles:
+    active: dev
+
+app:
+  name: myapp
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 4s
+  main-project:
+    person:
+      first-name: "Base Person"
+      roles:
+        - USER
+        - ADMIN
+      attrs:
+        keys1: "v1"
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+app:
+  name: myapp-dev
+  main-project:
+    person:
+      first-name: "Dev Person"
+#      List 是【整体替换】——这里只写1个，基础的 ADMIN 会丢
+      roles:
+        -DEV_ONLY
+#      Map 是【按 key 合并】——key1 保留，新增 key2
+      attrs:
+        key2: "v2"
