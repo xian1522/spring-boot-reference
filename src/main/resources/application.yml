@@ -4,7 +4,11 @@ spring:
   main:
     lazy-initialization: false
   profiles:
-    active: dev
+#    active: dev
+    group:
+      production:
+        - prodDb
+        - prodMq
 
 app:
   name: myapp
@@ -36,3 +40,13 @@ app:
 #      Map 是【按 key 合并】——key1 保留，新增 key2
       attrs:
         key2: "v2"
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+app:
+  name: myapp-prod
+  main-project:
+    person:
+      first-name: "Prod Person"
